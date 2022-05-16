@@ -10,7 +10,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   const result = await executeQuery({
     query: `SELECT pl.id,
             pl.nom,
-            SUM(j.punts) as totals,
+            SUM(case when resultat = 'puntua' or resultat = 'doblats' then j.punts else 0 end) as totals,
             sum(case when resultat = 'recollit' then 1 else 0 end) as recollit,
             sum(case when resultat = 'matacanat' then 1 else 0 end) as matacanat,
             sum(case when resultat = 'np' then 1 else 0 end) as nps,
